@@ -1,0 +1,118 @@
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Administration — Hélium Motors</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<main class="admin">
+<section id="login" style="max-width:480px;margin:70px auto">
+<img src="logo-helium-motors.png" style="width:260px">
+<h1 style="font-size:2.5rem">Administration</h1>
+<form id="loginForm"><div class="error"></div>
+<input id="loginEmail" type="email" value="heliummotors08@gmail.com" required>
+<input id="loginPassword" type="password" placeholder="Mot de passe Supabase" required>
+<button class="btn btn-gold">Connexion</button></form>
+</section>
+
+<section id="dashboard" class="hidden">
+<div class="admin-layout">
+<aside class="sidebar">
+<img src="logo-helium-motors.png">
+<button data-view="dashboardView">📊 Tableau de bord</button>
+<button data-view="vehiclesView">🚗 Véhicules</button>
+<button data-view="requestsView">📨 Demandes / CRM</button>
+<button data-view="articlesView">📰 Articles</button>
+<button data-view="reviewsView">⭐ Avis</button>
+<button data-view="soldView">✅ Véhicules vendus</button>
+<button data-view="mediaView">🖼 Médias</button>
+<button data-view="settingsView">⚙ Paramètres</button>
+<button id="logout">Déconnexion</button>
+<button onclick="location.href='index.html'">Voir le site</button>
+</aside>
+
+<div class="panel">
+<div class="admin-header">
+<div><small>Hélium Motors</small><h1 id="viewTitle">Tableau de bord</h1></div>
+<div class="admin-toolbar"><button class="btn btn-outline" onclick="refreshAll()">Actualiser</button></div>
+</div>
+
+<section id="dashboardView" class="view-section active">
+<div class="dashboard-cards">
+<div class="dashboard-card"><small>Véhicules disponibles</small><strong id="kpiVehicles">0</strong></div>
+<div class="dashboard-card"><small>Nouvelles demandes</small><strong id="kpiRequests">0</strong></div>
+<div class="dashboard-card"><small>Réservations</small><strong id="kpiReservations">0</strong></div>
+<div class="dashboard-card"><small>Articles publiés</small><strong id="kpiArticles">0</strong></div>
+</div>
+<div class="grid2">
+<div class="chart-box"><h3>Demandes par catégorie</h3><div class="simple-bars" id="requestChart"></div></div>
+<div class="chart-box"><h3>Activité récente</h3><div id="recentActivity"></div></div>
+</div>
+</section>
+
+<section id="vehiclesView" class="view-section">
+<div class="vehicle-admin-grid">
+<div>
+<h2>Ajouter un véhicule</h2>
+<form id="vehicleForm">
+<input name="title" required placeholder="Marque et modèle">
+<div class="form-row"><input name="year" type="number" placeholder="Année"><input name="mileage" type="number" placeholder="Kilométrage"></div>
+<div class="form-row"><input name="price" type="number" placeholder="Prix €"><input name="discounted_price" type="number" placeholder="Prix remisé"></div>
+<div class="form-row"><input name="fuel" placeholder="Carburant"><input name="transmission" placeholder="Transmission"></div>
+<div class="form-row"><input name="color" placeholder="Couleur extérieure"><input name="interior_color" placeholder="Couleur intérieure"></div>
+<div class="form-row"><input name="power" placeholder="Puissance"><input name="owners_count" type="number" placeholder="Nombre de propriétaires"></div>
+<input name="vin" placeholder="VIN (privé)">
+<input name="video_url" placeholder="URL vidéo YouTube">
+<input name="warranty_text" placeholder="Garantie / information">
+<textarea name="history" rows="4" placeholder="Historique"></textarea>
+<textarea name="equipment" rows="4" placeholder="Équipements séparés par des virgules"></textarea>
+<input name="seo_title" placeholder="Titre SEO">
+<textarea name="seo_description" placeholder="Description SEO"></textarea>
+<select name="status"><option>Disponible</option><option>Réservé</option><option>Vendu</option><option>Sur commande</option></select>
+<label><input name="featured" type="checkbox" style="width:auto"> Mettre en avant</label>
+<label><input name="published" type="checkbox" style="width:auto"> Publier immédiatement</label>
+<div class="dropzone" id="vehicleDropzone">Glissez les photos ici ou cliquez pour sélectionner<input id="vehicleFiles" type="file" multiple accept="image/*" hidden></div>
+<div class="preview-grid" id="vehiclePreview"></div>
+<button class="btn btn-gold">Ajouter le véhicule</button>
+</form>
+</div>
+<div><h2>Catalogue</h2><div id="vehicleAdminList"></div></div>
+</div>
+</section>
+
+<section id="requestsView" class="view-section">
+<div class="grid2">
+<div><h2>Demandes reçues</h2><select id="requestFilter"><option value="all">Toutes</option><option value="contact_messages">Contact</option><option value="brokerage_requests">Courtage</option><option value="import_requests">Importation</option><option value="sale_requests">Vente véhicule</option><option value="reservations">Réservations</option></select><div id="requestList"></div></div>
+<div><h2>Fiche client</h2><div id="clientPanel" class="notice">Sélectionnez une demande pour afficher les détails et ajouter une note.</div></div>
+</div>
+</section>
+
+<section id="articlesView" class="view-section">
+<div class="grid2"><form id="articleForm"><h2>Nouvel article</h2><input name="title" required placeholder="Titre"><input name="category" placeholder="Catégorie"><input name="cover_image" placeholder="URL image"><textarea name="excerpt" placeholder="Résumé"></textarea><textarea name="content" rows="10" placeholder="Contenu"></textarea><input name="seo_title" placeholder="Titre SEO"><textarea name="seo_description" placeholder="Description SEO"></textarea><label><input name="published" type="checkbox" style="width:auto"> Publier</label><button class="btn btn-gold">Enregistrer</button></form><div><h2>Articles</h2><div id="articleAdminList"></div></div></div>
+</section>
+
+<section id="reviewsView" class="view-section">
+<div class="grid2"><form id="reviewForm"><h2>Ajouter un avis</h2><input name="client_name" required placeholder="Nom du client"><input name="vehicle_name" placeholder="Véhicule"><select name="rating"><option value="5">5 étoiles</option><option value="4">4 étoiles</option><option value="3">3 étoiles</option></select><textarea name="content" required placeholder="Avis"></textarea><input name="image_url" placeholder="URL photo"><label><input name="published" type="checkbox" style="width:auto"> Publier</label><button class="btn btn-gold">Ajouter</button></form><div><h2>Avis publiés</h2><div id="reviewAdminList"></div></div></div>
+</section>
+
+<section id="soldView" class="view-section">
+<div class="grid2"><form id="soldForm"><h2>Ajouter un véhicule vendu</h2><input name="title" required placeholder="Marque et modèle"><input name="image_url" placeholder="URL photo"><input name="destination" placeholder="Ville ou pays"><input name="sold_at" type="date"><label><input name="published" type="checkbox" style="width:auto"> Publier</label><button class="btn btn-gold">Ajouter</button></form><div><h2>Véhicules vendus</h2><div id="soldAdminList"></div></div></div>
+</section>
+
+<section id="mediaView" class="view-section">
+<h2>Bibliothèque médias</h2>
+<div class="dropzone" id="mediaDropzone">Glissez vos images ici<input id="mediaFiles" type="file" multiple accept="image/*" hidden></div>
+<div class="preview-grid" id="mediaLibrary"></div>
+</section>
+
+<section id="settingsView" class="view-section">
+<div class="settings-grid">
+<form id="contactSettings"><h2>Coordonnées</h2><input name="phone" placeholder="Téléphone"><input name="email" placeholder="Email"><input name="whatsapp" placeholder="WhatsApp"><input name="hours" placeholder="Horaires"><button class="btn btn-gold">Enregistrer</button></form>
+<form id="statsSettings"><h2>Statistiques affichées</h2><input name="vehicles_sold" type="number" placeholder="Véhicules vendus"><input name="clients_satisfied" type="number" placeholder="Clients satisfaits"><input name="recommendation_rate" type="number" placeholder="Recommandations %"><button class="btn btn-gold">Enregistrer</button></form>
+</div>
+</section>
+</div></div>
+</section>
+</main>
+
+<div class="modal" id="modal"><div class="modal-box"><button class="btn btn-outline" onclick="closeModal()">Fermer</button><div id="modalContent"></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script><script src="supabase-client.js"></script><script src="admin-phase2.js"></script>
+</body></html>

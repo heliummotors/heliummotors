@@ -54,3 +54,18 @@ PHASE 2
    - Bibliothèque médias
    - Paramètres
 4. Le mot de passe reste géré par Supabase Auth.
+
+
+CORRECTION DE MISE EN PAGE
+- Navigation principale simplifiée.
+- Services regroupés dans un menu déroulant.
+- Largeur maximale cohérente sur toutes les pages.
+- Cartes et images redimensionnées.
+- Navigation mobile corrigée.
+- Footer et administration adaptés aux petits écrans.
+
+
+NAVIGATION ENTRE PAGES
+Chaque onglet de la barre de navigation ouvre désormais un fichier HTML distinct :
+Accueil, Véhicules, Achat/Vente, Courtage, Import/Export, Vendre, Livraison,
+Contrôles, Actualités, Avis et Contact.
