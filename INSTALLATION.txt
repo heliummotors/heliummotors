@@ -1,0 +1,56 @@
+HÉLIUM MOTORS — VERSION CONNECTÉE V1
+
+SUPABASE
+URL configurée : https://fmfdemaxbxtwgpvpjbgz.supabase.co
+La clé publique fournie est intégrée dans config.js.
+
+INSTALLATION
+1. Dans Supabase > SQL Editor, exécuter supabase-setup.sql.
+2. Dans Authentication > Users, créer l'utilisateur :
+   Email : heliummotors08@gmail.com
+   Mot de passe : choisir un mot de passe sécurisé.
+3. Exécuter ensuite la commande profiles indiquée à la fin du fichier SQL.
+4. Déployer la fonction brevo-notify-function.ts sous le nom notify-request.
+5. Ajouter dans Supabase Edge Functions Secrets :
+   BREVO_API_KEY
+   ADMIN_NOTIFICATION_EMAIL=heliummotors08@gmail.com
+6. Vérifier l'expéditeur dans Brevo.
+7. Envoyer tous les fichiers à la racine du dépôt GitHub Pages.
+8. Acheter heliummotors.fr puis configurer le domaine personnalisé dans GitHub Pages.
+
+TAWK.TO
+Le vrai code Tawk.to est intégré sur toutes les pages publiques.
+
+WHATSAPP
+Le bouton utilise +33 7 82 68 46 07 et votre message prérempli.
+
+ADMINISTRATION
+Page : admin.html
+Connexion via Supabase Auth. L'ancien mot de passe HTML de démonstration n'est plus utilisé.
+Le mot de passe doit être défini dans Supabase Authentication.
+
+PAIEMENT
+Le paiement de l'acompte de 20 % reste désactivé jusqu'à la création de Stripe et l'ajout des coordonnées bancaires.
+Les demandes de réservation sont enregistrées dans Supabase.
+
+SÉCURITÉ
+Ne jamais publier la clé service_role Supabase ni la clé API Brevo.
+La carte grise et les documents sont enregistrés dans le bucket privé private-documents.
+
+AVIS
+Les avis fictifs ne sont pas réinjectés dans cette version connectée. Vous pourrez en ajouter depuis Supabase ou une prochaine extension de l'administration.
+
+
+PHASE 2
+1. Exécuter supabase-phase2.sql dans SQL Editor.
+2. Recharger admin.html.
+3. Les nouveaux modules apparaîtront :
+   - Dashboard
+   - Véhicules avancés avec upload photos
+   - CRM demandes / clients
+   - Articles
+   - Avis
+   - Véhicules vendus
+   - Bibliothèque médias
+   - Paramètres
+4. Le mot de passe reste géré par Supabase Auth.
