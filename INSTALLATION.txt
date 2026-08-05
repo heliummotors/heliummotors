@@ -63,9 +63,3 @@ CORRECTION DE MISE EN PAGE
 - Cartes et images redimensionnées.
 - Navigation mobile corrigée.
 - Footer et administration adaptés aux petits écrans.
-
-
-NAVIGATION ENTRE PAGES
-Chaque onglet de la barre de navigation ouvre désormais un fichier HTML distinct :
-Accueil, Véhicules, Achat/Vente, Courtage, Import/Export, Vendre, Livraison,
-Contrôles, Actualités, Avis et Contact.
